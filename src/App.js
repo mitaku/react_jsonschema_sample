@@ -9,7 +9,23 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+import RaisedButton from 'material-ui/RaisedButton';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitButton = this.handleSubmitButton.bind(this);
+  }
+
+  handleSubmitButton() {
+    this.handleSubmit(this.f.state.formData);
+  }
+
+  handleSubmit(data) {
+    console.log(data)
+  }
+
   render() {
     const schema = {
       "title": "Basic Demo",
@@ -53,10 +69,10 @@ class App extends Component {
                 onError={errors => {
                   console.log(errors);
                 }}
-                onSubmit={data => {
-                  console.log(data);
-                }}
+                onSubmit={this.handleSubmit}
+                ref={(f) => { this.f = f; }}
               />
+              <RaisedButton label="Submit" onClick={this.handleSubmitButton} />
           </div>
         </div>
       </MuiThemeProvider>
